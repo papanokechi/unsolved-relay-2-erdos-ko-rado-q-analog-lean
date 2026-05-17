@@ -1,15 +1,18 @@
-# targets/success_predicate.md — M2.3 Success Predicate (DRAFT for operator review)
+# targets/success_predicate.md — M2.3 Success Predicate (RATIFIED at M2.4 Gold Freeze G2-2)
 
 **Mission:** unsolved-relay-2 (D-4 EKR q-analog Lean 4 formalization)
-**Milestone:** M2.3 (Success-predicate construction)
-**Status:** DRAFT — awaiting operator ratification prior to M2.4 Gold Freeze G2-2
-**Selection authority:** Operator U-MISSION-2-H (2026-05-17)
+**Milestone:** M2.3 (Success-predicate construction) → M2.4 (Gold Freeze G2-2)
+**Status:** **RATIFIED** by operator U-MISSION-2-I (2026-05-17 JST)
+**Gold tag:** `gold/M2-2` applied at the ratification commit
+**Selection authority:** Operator U-MISSION-2-H (framing) + U-MISSION-2-I (venue + four-question ratification)
 **Drafted:** 2026-05-17 JST
 **Companion artifacts:** `targets/selected.md` (M1.3), `capability/q_binomial.available.md` + `capability/intersecting_substrate.available.md` + `capability/README.md` (M2.2), `literature/ledger.md` (M2.1, 16 entries).
 
 ---
 
-## 1. Operator decision package (U-MISSION-2-H)
+## 1. Operator decision package (U-MISSION-2-H + U-MISSION-2-I)
+
+### 1.1 U-MISSION-2-H — Framing decisions
 
 | # | Decision | Operator selection |
 |---|---|---|
@@ -19,6 +22,17 @@
 | 4 | Lean toolchain pin | **`leanprover/lean4:v4.29.0`** (matches `xiangyazi24/AnalyticCombinatorics`; Mathlib4 HEAD-compatible) |
 
 Operator-acknowledged: decision (3) is **NOT** a mutation per Brief §7 (same H9 taxonomy, different tier-application semantics); budget remains **0 / 1** at M2-2.
+
+### 1.2 U-MISSION-2-I — Four-question ratification (M2.4 fire prerequisites)
+
+| # | Question | Operator selection |
+|---|---|---|
+| 1 | M6-2 submission venue | **Math.Comp (AMS) as primary**; JAR (Springer) as named alternative if Math.Comp venue-unfit issues surface during M6-2 packet preparation; **arXiv preprint as always-available complement**; CPP 2027 / ITP 2027 deferred to **post-mission Stream M follow-up** if operator wants conference proceedings track |
+| 2 | Toolchain pin | **Firm at `leanprover/lean4:v4.29.0` now.** `v4.28.0` documented as fallback only if `facebookresearch/algebraic-combinatorics` Lake dep proves `v4.29.0`-incompatible during M3.1 first-build. No defer to M3.1. |
+| 3 | Path B parallel artifact priority | **Stretch (CLI default), not must-have.** Path B is Mathlib4 PR candidate developed in parallel but **not gated on Tier 1 closed-proof delivery**. M3.1 primary work is compression-argument proof using facebookresearch Lake dep; Path B clean re-implementation proceeds opportunistically. |
+| 4 | Mathlib4 PR open timing | **At M5 ratification (CLI default).** PR opens once substrate compiles and Tier 1 proof verifies against it. Holding until M6-2 manuscript bundle would unnecessarily delay the PR-as-separable-artifact. |
+
+All four U-MISSION-2-I decisions accept CLI's recommended defaults except (1), which is the substantive correction: **ITP 2026 venue-blocked → Math.Comp substitute**.
 
 ---
 
@@ -190,7 +204,7 @@ the Tier-1 closed-proof remains intact; the parallel artifact is filed as
 
 ### 3.4 Parallel-artifact predicate body
 
-**Stretch deliverable (not mission-failing if it stalls)**:
+**Status (U-MISSION-2-I decision 3): STRETCH deliverable — not mission-failing if it stalls.** Path B is decoupled from Tier 1 closed-proof delivery (§2.1 / §3.3); M3.1 primary work proceeds on the facebookresearch Lake dep, with Path B opportunistic.
 
 > One or more Apache-2.0-licensed Lean 4 source files in the mission repo under
 > a clearly named path (e.g., `lean/QBinomialClean/Basic.lean`) which define
@@ -237,32 +251,40 @@ M follow-up, not within M6-2 itself.
 | **Logical Methods in Computer Science (LMCS)** — open-access | Rolling submission; broad scope | **ALTERNATIVE**, less specific to formalization |
 | **arXiv preprint** (`math.CO` cross-list `cs.LO`) | Rolling deposit | Always-available **complement** to journal submission |
 
-### 4.3 Recommended M6-2 submission package
+### 4.3 M6-2 submission package (U-MISSION-2-I decision 1, RATIFIED)
 
-CLI proposal:
+Operator selection:
 
-1. **Primary journal submission**: Math.Comp formalization paper (~10–18 pages)
+1. **Primary journal submission**: **Math.Comp (AMS)** formalization paper (~10–18 pages)
    built around the Tier-1 closed-proof file + the parallel-artifact substrate
    (if landed) + AEAL methodology Appendix B (≤ 2 pages per Brief §0).
-2. **arXiv preprint**: deposit simultaneously with journal submission.
-3. **Mathlib4 PR**: open at M6 if parallel-artifact has compiled cleanly; PR
-   review proceeds post-mission. Mathlib4 PR is a **deliverable artifact**
-   (citable as a GitHub PR URL even before merge) independent of journal
-   acceptance.
-4. **CPP 2027 / ITP 2027** (post-mission Stream M follow-up): the same paper or
-   an extended/revised version can target one of these venues outside the
-   6-week window if operator wishes a conference proceedings appearance.
+2. **Named alternative**: **JAR (Journal of Automated Reasoning, Springer)** —
+   invoked if M6-2 packet preparation surfaces Math.Comp venue-unfit issues.
+3. **arXiv preprint**: deposit **simultaneously** with journal submission, as
+   always-available complement.
+4. **Mathlib4 PR**: open at M5 ratification (per U-MISSION-2-I decision 4),
+   independent of journal acceptance.
+5. **Conference proceedings track**: **CPP 2027 / ITP 2027 deferred to
+   post-mission Stream M follow-up** — operator-acknowledged that no
+   conference deadline aligns with the 6-week M6-2 window (ITP 2026 deadline
+   past, CPP 2027 deadline 2-3 months post-mission).
 
-### 4.4 Operator override option
+### 4.4 Venue substitution rationale (recorded for M6-2 §Appendix B)
 
-If operator prefers **conference proceedings within M6-2**, the only available
-candidates are workshop venues with rolling submission (e.g., **Lean Together**
-talks, **Mathlib monthly** community presentations) which are not refereed
-proceedings in the traditional sense. CLI flags this as a venue-degradation
-trade-off if operator pushes for in-window conference fire.
+U-MISSION-2-H named ITP 2026 as preferred; CLI's web-verified deadline check at
+M2.3 draft surfaced ITP 2026's submission deadline (Feb 12 / 19, 2026) had passed
+~3 months before mission 2 started. The substitution to Math.Comp is a **venue-
+target correction**, not a scope mutation: the underlying paper content
+(formalization paper around Tier-1 closed-proof + AEAL Appendix B) is unchanged;
+only the venue selection narrows from "conference proceedings" to "journal".
 
-**Default in absence of operator override**: Math.Comp + arXiv + Mathlib4 PR
-package per §4.3.
+**Not a mutation.** The submission-fire-inside-M6-2 prohibition (Brief §0,
+restated §10) is honored under the journal target. Mutation budget 0/1 unchanged.
+
+H8-extended-to-venue-deadlines reading (a precedent for future missions): H8
+paper-read discipline applies analogously to **venue deadline verification** at
+M2.3 framing time. Recording for Stream M methodology paper as a candidate
+inheritance heuristic note.
 
 ---
 
@@ -296,21 +318,20 @@ lean_lib QBinomialClean where
   -- MUST NOT import from `algcomb` namespace.
 ```
 
-### 5.2 Toolchain pin caveat
+### 5.2 Toolchain pin (U-MISSION-2-I decision 2, RATIFIED)
 
-`facebookresearch/algebraic-combinatorics` pins **Lean 4.28.0** + **Mathlib v4.28.0**.
-Lean toolchain version skew between facebookresearch (4.28.0) and the mission repo
-(4.29.0) may require:
+**Firm at `leanprover/lean4:v4.29.0` now.** The lakefile.lean at M3.1 will pin
+this toolchain version explicitly via `lean-toolchain` file + `lakefile.lean`
+declarations.
 
-- **Option (i)**: pin mission repo to `v4.28.0` to match facebookresearch dep
-  (preferred for first-build cleanness, costs the newer Mathlib4 features).
-- **Option (ii)**: pin to `v4.29.0` and accept that facebookresearch dep may need
-  a fork or update PR to compile against the newer toolchain.
-- **Option (iii)**: defer the toolchain pin to M3.1 first-build and decide based
-  on empirical build results.
+**Fallback contingency**: if `facebookresearch/algebraic-combinatorics` Lake dep
+proves `v4.29.0`-incompatible during M3.1 first-build (its repo pins `v4.28.0`),
+the documented fallback is to **pin to `v4.28.0`** to match the dep. This is
+the only acceptable toolchain shift; any other toolchain change requires operator
+authorization.
 
-**CLI recommendation**: option (iii) — defer to M3.1 build evidence. Toolchain
-choice does not load-bear on M2.3 / M2.4; it's an M3.1 implementation detail.
+**No defer to M3.1 build evidence**. Operator explicitly resolved this in
+U-MISSION-2-I — toolchain is firm at the M2.4 freeze.
 
 ---
 
@@ -380,8 +401,15 @@ Sub-key population happens at **M5 close**, not at M2.3 / M2.4 freeze.
 
 ### 7.5 M6 manuscript + submission (week 6)
 
-- Math.Comp submission + arXiv deposit per §4.3.
-- Mathlib4 PR opened if Path C parallel artifact landed.
+- **Math.Comp (AMS)** journal submission per §4.3 U-MISSION-2-I decision 1.
+- **arXiv preprint** deposit simultaneously per §4.3.
+- **Mathlib4 PR** opens **at M5 ratification** (U-MISSION-2-I decision 4) if Path C
+  parallel artifact landed; PR review proceeds **post-mission** independent of
+  Math.Comp acceptance. PR-as-separable-artifact timing is opportunistic; PR
+  may open earlier in M5 if substrate compiles ahead of ratification, with
+  the formal "open" announcement at M5 ratification commit.
+- **JAR** (Springer) reserved as named alternative per U-MISSION-2-I decision 1
+  if Math.Comp venue-unfit issues surface during M6-2 packet preparation.
 - Stream M coordination: M6-2 worked example pair-anchors Section 4 with K_0
   PSLQ-class numerical-verification example.
 
@@ -445,27 +473,24 @@ trigger conditions are explicit.
 
 ---
 
-## 11. Outstanding open questions (for operator confirmation before M2.4 fire)
+## 11. Outstanding open questions — RESOLVED via U-MISSION-2-I
 
-1. **Venue confirmation**: Math.Comp as primary M6-2 journal target acceptable, given ITP 2026 and CPP 2027 timing constraints in §4.1–4.3? Alternative: operator selects JAR / LMCS / other.
-2. **Toolchain pin firm at v4.29.0, or defer to M3.1 first-build evidence per §5.2 option (iii)?**
-3. **Parallel artifact (Path B) priority**: is the subspace-counting bijection a "stretch" component (CLI default) or "must-have" (would elevate M3.1 risk)?
-4. **Mathlib4 PR open timing**: at M5 ratification (CLI default; only if file passes local `lake build`) or held until M6-2 close to bundle with manuscript announcement?
+All four questions resolved by operator U-MISSION-2-I (2026-05-17 JST). See §1.2 for the decision table. Resolutions summarised below for cross-reference:
 
-CLI recommends defaults across all four; operator overrides at will.
+1. **Venue confirmation** → Math.Comp primary; JAR named alternative; arXiv complement; CPP/ITP 2027 deferred to post-mission Stream M follow-up. See §4.3 / §4.4.
+2. **Toolchain pin** → Firm at `leanprover/lean4:v4.29.0` now; `v4.28.0` fallback only on facebookresearch Lake dep incompatibility. See §5.2.
+3. **Path B parallel artifact priority** → Stretch (CLI default), not must-have; opportunistic alongside Tier 1 primary. See §3.4.
+4. **Mathlib4 PR open timing** → At M5 ratification (CLI default); PR opens once substrate compiles and Tier 1 verifies. See §7.5.
+
+This section is **closed** at M2.4 ratification; remaining open questions (if any surface during M3) are tracked in `mutation_log/M2-2.md` and surfaced at appropriate milestone checkpoints.
 
 ---
 
 ## 12. Next milestone
 
-**M2.4 Gold Freeze G2-2**:
+**M2.4 Gold Freeze G2-2 FIRED.** Tag `gold/M2-2` applied at this ratification commit via Workaround B (GitHub REST API per `tooling/git_multi_line_input_workaround.md`).
 
-- After operator ratifies this draft (with any amendments), CLI commits the final
-  version, then tags `gold/M2-2` at the freeze commit per Brief §M2.4.
-- Tag-applying mechanism: GitHub REST API (Workaround B) per tooling doc, since
-  annotated tags trigger the PowerShell harness crash on `git tag -a -m`.
-
-After `gold/M2-2`: **M3.1 substrate work begins** per §7.1.
+**Next: M3.1 substrate work** per §7.1.
 
 ---
 
