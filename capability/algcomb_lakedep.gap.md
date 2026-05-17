@@ -68,3 +68,34 @@ independent_verifier_result:
   - Option (ii) is the M2.4 Tier 2 fallback already ratified → not a mutation.
   - Option (iii) is the M2.2 §3 documented fallback proof method → not a mutation if the proof method change is documented as the M2.2-anticipated escalation, but the operator may classify this as a mutation depending on framing.
   - Option (i) reorients Path A/B/C from "hybrid" to "Path B-only" and promotes the Mathlib4 PR from "stretch" to "primary." This is closer to mutation territory; operator decision at the substep-1 surface may invoke the M3-2 mutation budget for this option.
+
+## RESOLUTION — U-MISSION-2-J (2026-05-18)
+
+**Operator selected option (iii)** — direct point-pencil counting proof method. Method-family substitution within M2.2 §3 pre-enumerated alternative-methods envelope; NOT a mutation per Brief §7 standard reading.
+
+**CLI default (4a) applied for `QBinomialClean`**: parallel-track Mathlib4 PR candidate **dropped** for this mission. The `QBinomialClean` lean_lib is retained as scaffolded structure (license-as-structural-invariant pattern preserved) for forward optionality, but receives NO IMPLEMENTATION WORK during this mission.
+
+**Budget impact:** 0 / 1 unchanged. Method substitution within M2.2 H7 functional-verification output envelope does not invoke the M3-2 budget.
+
+**M3.1 substep ordering under option (iii):**
+
+- **Substep (2)** — `IsDimIntersectingOf` predicate (~50-150 lines) under `QEkr/IsDimIntersectingOf.lean`. Substrate: `Set.Intersecting` over subspace family (H7-verified at M2.2 Fire 2 via `capability/intersecting_substrate.available.md`); no q-binomial dependency. Target close: end of week 3 (~2026-05-24).
+- **Substep (3)** — direct point-pencil counting proof under `QEkr/PointPencilCounting/` (~500-800 lines, staged top-down with `sorry` placeholders, multi-session). Target close: end of week 4 (~2026-05-31), possibly running into early week 5.
+- **Substep (4)** — DROPPED per (4a). `QBinomialClean` retained as scaffolded structure.
+
+**Updated capability classification** (post-resolution):
+
+- **Direct point-pencil counting without q-binomial substrate**: **AVAILABLE — REALIZED METHOD** (was AVAILABLE at M2.2; now realized as Tier 1 primary method under option (iii) per U-MISSION-2-J).
+- **Mathlib4-PR-eligible clean substrate**: **GAP — DEFERRED POST-MISSION** (was GAP; remains GAP but explicit deferral per (4a); not load-bearing on this mission's Tier 1 deliverable).
+- Other entries above unchanged.
+
+**Cross-references for Stream M / methodology paper:**
+
+This resolution is the cleanest example yet of AEAL's adaptive-completion-within-pre-enumerated-envelope discipline:
+
+1. M2.2 H7 functional verification enumerated alternative methods up front (Frankl-Wilson eigenvalue substrate UNAVAILABLE; compression-argument PARTIAL/AVAILABLE; direct point-pencil counting AVAILABLE).
+2. M2.3/M2.4 selected compression-argument as primary, with direct point-pencil counting as the M2.2 §3 documented option.
+3. M3.1 H10 sub-step 1 (this file) surfaced compression-argument's substrate prerequisite (algcomb) as a capability gap.
+4. Operator U-MISSION-2-J substituted to direct point-pencil counting per M2.2 §3 envelope — preserving the 6-week window, Tier 1 deliverable, and mutation budget.
+
+The substitution to be framed in M6-2 manuscript §Discussion as substrate-blocked method substitution, recorded transparently rather than retrofitted.

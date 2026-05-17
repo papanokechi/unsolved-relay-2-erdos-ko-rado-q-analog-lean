@@ -74,20 +74,67 @@ require mathlib from git
 --     the on-disk tar.gz / build/js artifacts are present.
 --
 -- Conclusion: outcome (c) per operator's H10 sub-step decision tree.
--- The mission is held at the v4.29.0 + Mathlib-only-substrate state
--- (this commit) pending operator decision per the substep-(1) surface
--- among options (i)/(ii)/(iii). See `harness/h10_dry_run_M3-1_algcomb.md`
--- for the full evidence record and `capability/algcomb_lakedep.gap.md`
--- for the K_0 §0.2 capability classification.
+-- The mission was held at the v4.29.0 + Mathlib-only-substrate state
+-- (commit `20ce78c`) for operator surface among options (i)/(ii)/(iii).
+-- See `harness/h10_dry_run_M3-1_algcomb.md` for the full evidence record
+-- and `capability/algcomb_lakedep.gap.md` for the K_0 §0.2 capability
+-- classification.
 --
--- The `QEkr` and `QBinomialClean` libraries below remain split for
--- forward optionality (Path B clean re-implementation in
--- `QBinomialClean` is the operator's option (i)/(iii) substrate).
+-- # Method substitution decision (operator U-MISSION-2-J, 2026-05-18)
+--
+-- Operator selected **option (iii)** -- direct point-pencil counting
+-- proof method, substituted for compression-argument per M2.2 §3
+-- pre-enumerated alternative-methods envelope. This is method-family
+-- substitution within M2.2's H7 functional-verification output, NOT
+-- a strategic-direction mutation per Brief §7. Mutation budget remains
+-- **0 / 1** at M3-2.
+--
+-- Method substitution rationale:
+--   * Preserves 6-week window (mission close ~2026-06-28 unchanged).
+--   * Preserves Tier 1 closed-proof primary deliverable.
+--   * Eliminates q-binomial substrate dependency entirely; proof operates
+--     directly on `Set.Intersecting` over subspace families (H7-verified
+--     at M2.2 Fire 2 via `capability/intersecting_substrate.available.md`).
+--   * Strongest methodology-paper transferability evidence per Stream M:
+--     AEAL produces adaptive method substitution within pre-enumerated
+--     envelope rather than mission shrinkage (option ii) or scope
+--     expansion (option i).
+--
+-- Trade-off accepted: compression-argument's mathematical elegance is
+-- replaced by direct counting. To be framed in M6-2 manuscript §Discussion
+-- as substrate-blocked method substitution, recorded transparently.
+--
+-- # QBinomialClean parallel-track decision (CLI default (4a), 2026-05-18)
+--
+-- With q-binomial substrate NOT load-bearing on the Tier 1 deliverable
+-- under option (iii), the `QBinomialClean` Mathlib4 PR parallel track
+-- is **dropped** per CLI-default (4a). The `QBinomialClean` lean_lib
+-- below is retained as scaffolded structure for forward optionality
+-- (e.g., post-mission Mathlib4 PR if operator revisits) but receives
+-- NO IMPLEMENTATION WORK during this mission. The Apache-2.0 invariant
+-- (NO `algcomb` imports) remains structurally enforced at the lean_lib
+-- boundary, even though no implementation is added.
+--
+-- M3.1 substep ordering under option (iii):
+--   (2) `IsDimIntersectingOf` predicate (~50-150 lines) under
+--       `QEkr/IsDimIntersectingOf.lean`, substrate = `Set.Intersecting`.
+--   (3) Direct point-pencil counting proof under
+--       `QEkr/PointPencilCounting/` (~500-800 lines, staged top-down
+--       with `sorry` placeholders, multi-session).
+--   (4) DROPPED per (4a).
 
 @[default_target]
 lean_lib QEkr where
   -- Tier 1 closed-proof track; mission-repo-internal.
 
 lean_lib QBinomialClean where
-  -- Path C parallel artifact (stretch); Apache-2.0; Mathlib4 PR candidate.
+  -- Path B/C parallel artifact: DROPPED per CLI-default (4a) at
+  -- U-MISSION-2-J (2026-05-18); see comment block above.
+  -- Lean_lib retained as scaffolded structure for forward optionality
+  -- (post-mission Mathlib4 PR revisit). No implementation work during
+  -- this mission.
+  --
   -- ENFORCED INVARIANT: this library MUST NOT import from `algcomb`.
+  -- (Structural enforcement retained even though no implementation is
+  -- added, to preserve the license-as-structural-invariant pattern for
+  -- the methodology paper's framework discussion.)
