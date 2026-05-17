@@ -46,17 +46,43 @@ package qEkr where
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4.git" @ "v4.29.0"
 
--- `algcomb` is intentionally NOT enabled by default at M3.1 first-build.
--- Activation procedure (gated by H10 dry-run):
---   1. Verify `lake exe cache get` succeeds on Mathlib4 v4.29.0 (this file).
---   2. Verify `QEkr.Substrate` compiles cleanly.
---   3. Uncomment the `algcomb` require block below.
---   4. Run `lake update algcomb` and observe Mathlib pin compatibility.
---   5. If `algcomb` requires Mathlib v4.28.0 and that conflicts, invoke the
---      U-MISSION-2-I §5.2 fallback (pin mission repo to v4.28.0).
+-- `algcomb` (facebookresearch/algebraic-combinatorics, CC BY-NC 4.0) is
+-- NOT enabled as a Lake dep. The H10 sub-step on toolchain-skew (run at
+-- M3.1 between commits `6e16279` and this one) determined that algcomb
+-- is unusable as a Lake dep in this environment under either v4.29.0 or
+-- v4.28.0 toolchain pin:
 --
--- require algcomb from git
---   "https://github.com/facebookresearch/algebraic-combinatorics.git" @ "main"
+--   * At v4.29.0 (mission's primary pin): algcomb's source pins
+--     `mathlib v4.28.0` and was last released against the v4.28.0 API.
+--     With `require mathlib` re-ordered LAST so Mathlib's transitive
+--     pins win and `lake exe cache get` resolves, the build of
+--     `AlgebraicCombinatorics.QBinomialBasic` against Mathlib v4.29.0
+--     produces an `unsolved goals` error at line 1336 on a `Fin.cast`
+--     inequality (plus 4 `push_neg` deprecation warnings and 2 linter
+--     warnings -- collectively showing real v4.28 -> v4.29 API drift on
+--     the load-bearing q-binomial file).
+--
+--   * At v4.28.0 (downpin per U-MISSION-2-I §5.2 fallback): mathlib
+--     v4.28.0 itself compiles fine for trivial modules, but any module
+--     that transitively imports `Mathlib.Tactic.*` (including
+--     `Mathlib.Combinatorics.SetFamily.Intersecting`, the M2.2 Fire 2
+--     substrate file) triggers `proofwidgets/widgetJsAll` rebuild, which
+--     Mathlib v4.28.0 short-circuits via its `errorOnBuild` safeguard.
+--     The proofwidgets v0.0.87 release archive is fetched cleanly but
+--     Lake's trace check determines the cached widget state is "not
+--     up-to-date" on this Windows environment, irrespective of whether
+--     the on-disk tar.gz / build/js artifacts are present.
+--
+-- Conclusion: outcome (c) per operator's H10 sub-step decision tree.
+-- The mission is held at the v4.29.0 + Mathlib-only-substrate state
+-- (this commit) pending operator decision per the substep-(1) surface
+-- among options (i)/(ii)/(iii). See `harness/h10_dry_run_M3-1_algcomb.md`
+-- for the full evidence record and `capability/algcomb_lakedep.gap.md`
+-- for the K_0 §0.2 capability classification.
+--
+-- The `QEkr` and `QBinomialClean` libraries below remain split for
+-- forward optionality (Path B clean re-implementation in
+-- `QBinomialClean` is the operator's option (i)/(iii) substrate).
 
 @[default_target]
 lean_lib QEkr where
