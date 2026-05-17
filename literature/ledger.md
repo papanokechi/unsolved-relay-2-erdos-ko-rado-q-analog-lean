@@ -463,7 +463,59 @@ to in `targets/selected.md`.
 - **Mathlib4_module_path**: n/a
 - **excerpts**: n/a until selection.
 
-## H8 fire log (M2.1 summary)
+### Entry 16 — Kleitman 1966 (intersecting families foundational)
+
+- **author**: Kleitman, D. J.
+- **year**: 1966
+- **title**: Families of non-disjoint subsets
+- **venue**: *Journal of Combinatorial Theory* 1(2), 153–155
+- **DOI**: 10.1016/S0021-9800(66)80015-X
+- **claim_loaded_by_this_paper**: foundational establishment of the
+  **intersecting families** framework on which Dillies 2022
+  `Set.Intersecting` / `Set.IsIntersectingOf` substrate (entry 13) is
+  built. Kleitman 1966 is the canonical citation in the Mathlib4
+  `Intersecting.lean` module docstring as the origin of the intersecting
+  families concept. Load-bearing on M3.1's choice to construct mission
+  2's deliverable on top of `Set.Intersecting` rather than extending
+  `Finset.erdos_ko_rado` (which is locked to Kruskal–Katona).
+- **verification_status**: `paper-read` (H8 fired, theorem statement
+  captured below)
+- **H8_fire_required**: `yes` (load-bearing on M3.1 substrate choice)
+- **Mathlib4_module_path**: cited in
+  `Mathlib/Combinatorics/SetFamily/Intersecting.lean` module docstring;
+  no direct declaration carries the citation.
+- **excerpts** (theorem statement, paraphrased from canonical sources):
+
+  **Kleitman 1966.** Let \(\mathcal{A}_1, \dots, \mathcal{A}_r\) be
+  families of subsets of \([n]\) such that for every choice
+  \(A_i \in \mathcal{A}_i\) we have
+  \(\bigcap_{i=1}^{r} A_i \ne \emptyset\). Then
+  \[
+    \sum_{i=1}^{r} |\mathcal{A}_i| \;\le\; r \cdot 2^{n-1},
+  \]
+  with equality iff each \(\mathcal{A}_i\) consists of all subsets of
+  \([n]\) containing one fixed element (a common-element star).
+
+  **Relationship to mission 2.** The theorem above is the
+  set-theoretic ancestor of the EKR family; q-EKR (Hsieh 1975) replaces
+  "subsets of \([n]\)" with "k-dimensional subspaces of \(\mathbb{F}_q^n\)"
+  and "common element" with "common 1-dimensional subspace through the
+  origin (a *point-pencil*)". Kleitman's framework — "intersecting
+  family + extremal bound + equality characterisation via stars" — is
+  the structural template Frankl–Wilson 1986 specialises to the q-case
+  via eigenvalue methods.
+
+  **Why H8-load-bearing (and not background-only).** The Mathlib4
+  decision to file `Set.Intersecting` as a scheme-agnostic substrate
+  (rather than baking the intersecting-family predicate into a
+  classical-EKR-only module) is consistent with Kleitman's original
+  framing of intersecting families as a general combinatorial concept
+  applicable across multiple "underlying object" types. This is what
+  makes `Set.Intersecting` salvageable for the q-analog despite the
+  proof-method mismatch in entry 5. The substrate inherits Kleitman's
+  generality, not Mehta–Dillies's Kruskal–Katona specialisation.
+
+
 
 | Entry | H8 status | Outcome |
 |---|---|---|
@@ -481,7 +533,8 @@ to in `targets/selected.md`.
 | 12 (Tanaka 2006) | fired-with-finding | Grassmann-scheme alternative framing; method choice deferred to M2.3/M3.1 |
 | 13 (Intersecting module) | fired-with-finding | Kleitman 1966 origin; substrate confirmed applicable to q-analog |
 | 14 (Mathlib4 PR guidelines) | yes (deferred to M5/M6) | format-load-bearing; fire at PR opening |
-| 15 (venue template paper) | pending-decision | selection deferred |
+| 15 (venue template paper) | pending-decision | selection deferred to M6 per operator directive |
+| **16 (Kleitman 1966)** | **fired-resolved** | **intersecting-families framework theorem captured; substrate generality inherited by `Set.Intersecting`; load-bearing on M3.1 substrate choice** |
 
 ## H8 negative findings & operator clarifications
 
@@ -496,46 +549,49 @@ Two operator-seed entries had negative H8 outcomes:
    no paper by this exact author combination on q-EKR was located.
    Operator seed wording was "Aaronson–Ng–Wilf 2024 (if relevant per CLI's
    H8 paper-read judgment)"; H8 judgment is negative. Dropped from ledger.
-   **Proposed substitute** for operator consideration: arXiv:2410.22676
-   "Algebraic approach to stability results for EKR" (different authors)
-   — recent algebraic-method reference that could complement entry 10
-   (Godsil–Meagher 2016). Awaiting operator decision; currently not
-   added to ledger.
+   **Substitute (arXiv:2410.22676) deferred to M2.2 per operator
+   directive 2026-05-17**: only re-evaluate if M2.2 substrate audit
+   surfaces a need for an additional algebraic-method reference;
+   otherwise drop permanently.
 
-## Open queue (operator decision required at M2.1 close)
+## Open queue (operator decisions deferred to M2.2 or later)
 
-- Should arXiv:2410.22676 (Algebraic approach to stability results for
-  EKR) be added as entry 16 in place of the dropped Aaronson–Ng–Wilf
-  2024?
-- Should Kleitman 1966 (cited in entry 13 references) be promoted to a
-  separate ledger entry, or remain a secondary citation under entry 13?
-- Should Greene–Kleitman 1976 (q-analog Sperner) be added if the
-  manuscript Discussion section will argue a Sperner-vs-EKR contrast?
-- For entry 15 (venue template), should CLI propose 1–2 specific recent
-  ITP / CPP / Math.Comp formalization papers, or defer entirely to M6
-  drafting?
+Per operator directive 2026-05-17 at M2.1 close:
 
-## M2.1 close summary
+- **arXiv:2410.22676** substitute for Aaronson–Ng–Wilf 2024 — **deferred to
+  M2.2**. Re-surface only if substrate gap drives M3.1 toward
+  formalize-from-scratch territory and an additional algebraic-method
+  reference becomes load-bearing; otherwise drop permanently.
+- **Greene–Kleitman 1976** (q-analog Sperner) — **deferred to M2.2 / M3.1
+  proof-strategy decision**. Surface as load-bearing only if proof
+  strategy uses lattice / Sperner-style methods on top of the
+  `Set.Intersecting` substrate. Otherwise leave non-load-bearing.
+- **Entry 15 venue template** — **deferred to M6 selection** per operator
+  directive. Venue template selection depends on M6 manuscript structure
+  decisions not yet made.
 
-- **Entries**: 14 active + 1 deferred-selection = 15 (meets Brief §2.1 ≥15
-  minimum). One operator-seed entry dropped (Newman 1978) and one
-  candidate dropped (Aaronson–Ng–Wilf 2024) after H8 fires.
-- **Mathlib4_module_path field**: populated for entries 5 and 13;
-  surfaced as ABSENT for entry 6 (q-binomial existence gap); n/a for
-  entries 1, 2, 3, 7, 8, 9, 10, 11, 12, 15 (papers / books, not
-  modules); entry 14 references `CONTRIBUTING.md`.
-- **H8 fires**: 8 entries fired (resolved + with-finding combined); 2
+## M2.1 close summary (final)
+
+- **Entries**: 15 active + 1 deferred-selection (entry 15) = **16
+  ledger entries** (Brief §2.1 ≥15 minimum exceeded). Two operator-seed
+  candidates dropped after H8-negative fires (Newman 1978, Aaronson–Ng–Wilf
+  2024). One entry added at operator directive after operator close
+  review (Kleitman 1966 = entry 16).
+- **Mathlib4_module_path field**: populated for entries 5, 13 (and entry
+  16 with module-docstring citation cross-reference); surfaced as
+  ABSENT for entry 6 (q-binomial existence gap); n/a for entries 1, 2,
+  3, 7, 8, 9, 10, 11, 12, 15 (papers / books, not modules); entry 14
+  references `CONTRIBUTING.md`.
+- **H8 fires**: 9 entries fired (resolved + with-finding combined); 2
   entries no-fire-needed (background); 2 entries deferred to M5/M6
   drafting phase; 1 entry pending operator decision (entry 15).
 - **Two M2.2 pull-forward concerns surfaced**:
   1. q-binomial substrate absent from Mathlib4 (entry 6)
   2. Proof-method mismatch with existing Mathlib4 classical EKR (entry 5)
 - **Mutation budget at M2-2**: 0/1 unchanged. H6 audit, schema
-  refinement, ledger drafting, and pull-forward identification are not
-  strategy mutations; they are routine M2.1 work.
+  refinement, ledger drafting, pull-forward identification, and Kleitman
+  1966 addition at operator directive are not strategy mutations; they
+  are routine M2.1 work.
 
-Standing by for operator M2.1 close review:
-- Approve and proceed to M2.2 capability audit (which will address the
-  two pull-forward concerns as primary items)
-- Adjust ledger (add / drop / re-classify entries) before close
-- Defer close pending additional operator-supplied references
+**M2.1 closed at 16 entries**, advancing to M2.2 capability audit per
+operator directive 2026-05-17.

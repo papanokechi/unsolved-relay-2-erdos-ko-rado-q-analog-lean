@@ -38,9 +38,26 @@ already bypass editor).
 | 2026-05-17 14:0x | same | `git tag -a -F <file>` and `git tag -a -m "..."` | repeated crash; GitHub REST fallback |
 | 2026-05-17 ~18:55 | same | `git commit -F <file>` (BOM-less, M2.1 close message) | repeated crash even with BOM-less file; fell back to Workaround C |
 
-**Workaround A is therefore not fully reliable**; the BOM-less precaution is
-necessary but not sufficient. The M2.1 close commit message succeeded only via
-inline `-m` (see Workaround C below).
+**Workaround A is therefore not fully reliable** — the BOM-less precaution is
+necessary but not sufficient. **The pattern is intermittent**: Workaround A
+worked at commits `c8e5bca` and `31697f9` but crashed at the M2.1 close
+commit on the same day with the same procedure. Treat A as a probabilistic
+recovery, not a deterministic one. The M2.1 close commit message succeeded
+only via inline `-m` (see Workaround C below).
+
+**Recommended default policy (added 2026-05-17 per operator directive)**:
+
+- For commit messages that are **one logical line** (subject + single
+  trailer concatenated with `; ` separator): use **Workaround C** (inline
+  `-m`). Reliable, no harness interaction with file-stdio.
+- For commit messages that are **multi-paragraph and the paragraph
+  structure is load-bearing** (e.g., freeze-tag annotations, manuscript
+  artifacts, mutation-log narration): default to **Workaround D**
+  (external terminal escape hatch). Do not attempt Workaround A first;
+  the probability of crash is high enough that it wastes time.
+- For **annotated tags**: continue to use **Workaround B** (GitHub REST
+  API) regardless of message length. The `git tag -a` path is
+  effectively unrecoverable under the current harness.
 
 Operator should backfill K_0 instance dates from K_0 `mutation_log/` if precise
 chronology becomes relevant. They are not load-bearing on mission 2.
