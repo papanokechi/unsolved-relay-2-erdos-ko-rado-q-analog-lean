@@ -1,0 +1,4 @@
+# Reproducibility seeds.
+# Random seeds, search starting points, and any deterministic-but-arbitrary
+# constants used in M3 sanity-check scripts. Required for full reproducibility
+# per K_0 Axis 2 reproduce-command coverage standard (100% target).

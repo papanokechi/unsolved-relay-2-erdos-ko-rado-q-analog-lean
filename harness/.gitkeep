@@ -1,0 +1,5 @@
+# M3 — Numerical / symbolic / formal sprint substrate.
+# For this Lean-formalization-primary mission, M3 produces:
+#  - small-case q-EKR verification scripts (Sage / Python q-binomial sanity checks)
+#  - symbolic computation artifacts supporting the Frankl-Wilson algebraic step
+#  - dry-run logs per H10 (full-regime dry-run before any canonical sweep)

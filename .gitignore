@@ -1,0 +1,44 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+.venv/
+venv/
+env/venv/
+
+# --- Editor / OS ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
+
+# --- Lean / Lake ---
+.lake/
+lakefile.olean
+*.olean
+build/
+
+# --- Mathlib4 cache (large; not for git) ---
+.cache/
+mathlib4_cache/
+
+# --- Mission-specific scratch (do NOT commit) ---
+.scratch/
+tmp/
+*.tmp
+*.bak
+
+# --- Outputs not meant for the repo ---
+# (any large data dump / intermediate computation that should land on Zenodo, not git)
+artifacts/large/
+
+# --- harness/ paper-read cache (provenance via SHA-256, not binary in repo) ---
+harness/_paper_cache/*.pdf
+harness/_paper_cache/*.txt

@@ -1,0 +1,3 @@
+# env — Environment locks.
+# Lean 4 toolchain version (lean-toolchain), Mathlib4 commit SHA at mission
+# baseline, any Python/Sage dependencies for q-binomial computational checks.

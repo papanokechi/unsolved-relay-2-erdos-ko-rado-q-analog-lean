@@ -1,0 +1,4 @@
+# M6.3 — Handoff packet.
+# Populated post-deposit at gold/M6-2. Will include summary.md (analogous to
+# K_0's handoff/summary.md), agent_health_score.md (four-axis retrospective),
+# zenodo_metadata.json (deposit metadata), and any defect-audit log.

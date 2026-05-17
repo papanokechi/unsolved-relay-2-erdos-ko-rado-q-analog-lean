@@ -1,0 +1,8 @@
+# M5 — LOAD-BEARING milestone for this mission.
+# Lean 4 formalization skeleton becomes load-bearing per mission 2 brief §M5
+# (target is formalization-primary). Expected files:
+#   qEKR/Definitions.lean   — q-binomial, q-intersecting family definitions
+#   qEKR/Result.lean        — main theorem: q-analog of Erdős-Ko-Rado
+#   qEKR/Axioms.lean        — any auxiliary axioms not yet in Mathlib4,
+#                              named per H9 verification class taxonomy
+# May exceed K_0's 200-400 line M5 scope per brief §M5.

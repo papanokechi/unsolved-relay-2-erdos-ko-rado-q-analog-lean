@@ -1,0 +1,5 @@
+# M2.2 — Capability audit substrate.
+# One file per capability claim: capability_<technique>.available.md (H7 PASS)
+# or capability_<technique>.gap.md (H7 FAIL → halt per §0.2 of mission brief).
+# No retrofit clause (U-MISSION-D inheritance from K_0): a documented gap
+# stops the mission; do not retrofit installs to recover lost capabilities.
