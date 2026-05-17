@@ -36,6 +36,11 @@ already bypass editor).
 | 2026-05-17 13:55 | `papanokechi/unsolved-relay-2-erdos-ko-rado-q-analog-lean` | `git commit -F <file>` (BOM-laden) | amend round below |
 | 2026-05-17 13:58 | same | `git commit --amend -F <file>` (BOM-less) | succeeded |
 | 2026-05-17 14:0x | same | `git tag -a -F <file>` and `git tag -a -m "..."` | repeated crash; GitHub REST fallback |
+| 2026-05-17 ~18:55 | same | `git commit -F <file>` (BOM-less, M2.1 close message) | repeated crash even with BOM-less file; fell back to Workaround C |
+
+**Workaround A is therefore not fully reliable**; the BOM-less precaution is
+necessary but not sufficient. The M2.1 close commit message succeeded only via
+inline `-m` (see Workaround C below).
 
 Operator should backfill K_0 instance dates from K_0 `mutation_log/` if precise
 chronology becomes relevant. They are not load-bearing on mission 2.
@@ -113,6 +118,53 @@ attempt local annotated-tag creation at all. Instead:
 The resulting tag object has `type: "tag"` (annotated), identical in kind to a
 tag produced by `git tag -a` and to K_0's `gold/M6` reference (which was used
 as the type-precedent for mission 2's `gold/M1-2`).
+
+## Workaround C — short messages via inline `-m` (added 2026-05-17)
+
+When Workaround A (BOM-less `-F` file) crashes recurrently, a more reliable
+path exists for short messages:
+
+```powershell
+git commit -m "<subject>; <one-line trailer>"
+```
+
+The trailer can be appended to the subject with a `; ` separator. Git tools
+that parse trailers by regex on the last line of the commit message will still
+detect `Co-authored-by:`; tools that strictly require the trailer to be in a
+separate paragraph from the subject will not. For mission-record purposes the
+former is sufficient.
+
+If the message exceeds what's comfortable on a subject line, use multiple
+`-m` flags — each `-m` argument becomes a separate paragraph:
+
+```powershell
+git commit -m "<subject>" -m "<body paragraph 1>" -m "<body paragraph 2>" -m "<trailer>"
+```
+
+Multiple `-m` flags work reliably for `git tag -a` (verified during M1.3 Gold
+Freeze G1-2 attempt; the crash there was triggered by the multi-line content of
+a single `-m` argument's value, not by the number of `-m` flags themselves —
+though even that path eventually failed and required the GitHub REST fallback,
+Workaround B).
+
+**Workaround C trade-off**: less reliable for long messages with explicit
+paragraph breaks; loses the trailer-paragraph convention that some commit
+analyzers prefer. Acceptable for routine commits; not acceptable for
+freeze-tag annotations where commit-message hygiene matters more.
+
+## Workaround D — degraded mode
+
+If A and C both fail and the operator requires the commit message in
+unmodified multi-paragraph form, fall back to:
+
+1. Compose the message in a session-state file.
+2. Open a *separate* terminal (outside the Copilot CLI harness) and run
+   `git commit -F <file>` directly from there.
+3. Return to the harness and run `git push` to publish.
+
+This is a true escape hatch — it removes the Copilot CLI harness from the
+multi-line input path entirely. Not applicable in fully autonomous /
+autopilot sessions where no separate terminal is available.
 
 ## Open question
 
