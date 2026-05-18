@@ -44,11 +44,12 @@ pattern).
 * `pointPencil.mem_iff`, `pointPencil.uniform_dim`,
   `pointPencil.contains_centre`, `pointPencil.le_inf_of_mem_mem`:
   **complete** (basic API, no `sorry`).
-* `pointPencil.isDimIntersectingOf_ge`: scaffolded with `sorry`. The
-  argument is short (`V₀ ≤ V ⊓ W` via `le_inf` plus finrank
-  monotonicity), but the exact Mathlib lemma name for
-  `Submodule.finrank_mono` will be looked up at the next staged
-  commit.
+* `pointPencil.isDimIntersectingOf_ge`: **complete** (2-line proof
+  composing `le_inf_of_mem_mem` with `Submodule.finrank_mono` via
+  `le_trans`; the `[Module.Finite K (V ⊓ W)]` instance required by
+  `Submodule.finrank_mono` is synthesised automatically from
+  `[Module.Finite K M]` over a `DivisionRing` via
+  `finiteDimensional_submodule`).
 * `q_ekr` theorem: scaffolded with `sorry`; proof to be completed
   top-down across subsequent staged commits.
 
@@ -64,6 +65,7 @@ pattern).
 
 import QEkr.IsDimIntersectingOf
 import Mathlib.LinearAlgebra.FiniteDimensional.Defs
+import Mathlib.LinearAlgebra.Dimension.Constructions
 
 namespace QEkr
 
@@ -119,25 +121,20 @@ For the classical q-EKR case (`V₀` is 1-dim, so `t = 1` is the relevant
 threshold), this is the standard "every two subspaces of a pencil meet
 in at least the centre" observation.
 
-**Proof outline (for next staged commit)**:
-For `V, W ∈ pointPencil V₀ k` distinct, `V₀ ≤ V ⊓ W` (by
+**Proof**: for `V, W ∈ pointPencil V₀ k` distinct, `V₀ ≤ V ⊓ W` (by
 `le_inf_of_mem_mem`), so `finrank K V₀ ≤ finrank K (V ⊓ W)` by
-`Submodule.finrank_mono` (or equivalent). Combining with `ht`,
+`Submodule.finrank_mono`. Composing with `ht` via `le_trans` gives
 `t ≤ finrank K (V ⊓ W)`, i.e., `finrank K (V ⊓ W) ∈ {d | t ≤ d}`.
 
-The `[Module.Finite K M]` hypothesis is needed for `Submodule.finrank_mono`
-to be well-behaved on the ambient module.
+The `[Module.Finite K M]` hypothesis is needed so that the
+`Module.Finite K (V ⊓ W)` instance required by `Submodule.finrank_mono`
+is synthesised (via `finiteDimensional_submodule` over a `DivisionRing`).
 -/
 theorem isDimIntersectingOf_ge [Module.Finite K M] {t : ℕ}
-    (_ht : t ≤ Module.finrank K V₀) :
+    (ht : t ≤ Module.finrank K V₀) :
     IsDimIntersectingOf {d | t ≤ d} (pointPencil V₀ k) := by
-  -- TODO: substep (3) staged commit ≥2 — fill in via
-  --   intro V hV W hW _hne
-  --   have h_le : V₀ ≤ V ⊓ W := le_inf_of_mem_mem hV hW
-  --   have : Module.finrank K V₀ ≤ Module.finrank K (V ⊓ W) :=
-  --     Submodule.finrank_mono h_le  -- or analogous Mathlib lemma
-  --   exact le_trans _ht this
-  sorry
+  intro V hV W hW _hne
+  exact le_trans ht (Submodule.finrank_mono (le_inf_of_mem_mem hV hW))
 
 end pointPencil
 
