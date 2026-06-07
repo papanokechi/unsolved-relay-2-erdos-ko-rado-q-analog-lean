@@ -1,0 +1,103 @@
+{
+  "metadata": {
+    "upload_type": "publication",
+    "publication_type": "preprint",
+    "title": "A formalized Lean 4 statement of the q-analog Erdős–Ko–Rado theorem, with a documented Mathlib substrate gap",
+    "creators": [
+      {
+        "name": "Papanokechi",
+        "affiliation": "Independent Researcher",
+        "orcid": "0009-0000-6192-8273"
+      }
+    ],
+    "description": "<p><strong>This deposit is a formalized STATEMENT of the q-analog Erdős–Ko–Rado theorem together with an explicitly documented capability gap. It is NOT a formalized proof.</strong></p><p>The artifact, built in Lean 4 against Mathlib4 v4.29.0 (toolchain <code>leanprover/lean4:v4.29.0</code>, Mathlib SHA <code>8a178386ffc0</code>, SHA-pinned), comprises: (i) <code>QEkr.IsDimIntersectingOf</code>, a q-analog of Mathlib's intersecting-families predicate that measures pairwise intersection by <code>Module.finrank</code> instead of <code>Finset.card</code> (fully proved API); and (ii) <code>QEkr.q_ekr</code>, a type-checked statement of the q-EKR (t = 1) bound: every 1-intersecting family of k-dimensional subspaces of 𝔽_q^n has cardinality at most that of a point-pencil through a fixed line.</p><p>The proof of <code>q_ekr</code> is <strong>not</strong> formalized. Its body is a deliberate <code>sorry</code> marking an AEAL capability gap: the Mathlib v4.29.0 substrate required to discharge it is absent — specifically (a) q-binomial / Gaussian-binomial coefficients over 𝔽_q (zero declarations in Mathlib v4.29.0), (b) 𝔽_q subspace / Grassmannian counting (point-pencil enumeration and equinumerosity), and (c) the q-analog EKR extremal argument (Mathlib's only EKR is the classical finset version, which does not transfer to subspaces). <code>lake build</code> succeeds modulo exactly one intended <code>sorry</code> warning, and <code>#print axioms QEkr.q_ekr</code> lists <code>sorryAx</code> alongside <code>propext</code>, <code>Classical.choice</code>, and <code>Quot.sound</code> — the honest statement-not-proof signal, retained deliberately (not suppressed, not swapped for an axiom).</p><p>The companion document <code>capability/qekr_substrate.gap.md</code> gives the full gap analysis, a dependency-ordered roadmap for a future formalizer, and the method-substitution history (Frankl–Wilson eigenvalue → compression → direct point-pencil counting, each substituted on a substrate failure). This is an honest partial result suitable as a short note / Mathlib-statement contribution — NOT the closed-proof Mathlib4 PR originally targeted.</p>",
+    "license": "cc-by-4.0",
+    "access_right": "open",
+    "language": "eng",
+    "keywords": [
+      "Lean 4",
+      "Mathlib",
+      "formalization",
+      "Erdős–Ko–Rado theorem",
+      "q-analog",
+      "Gaussian binomial",
+      "extremal set theory",
+      "intersecting families",
+      "subspaces over finite fields",
+      "capability gap",
+      "statement-shape verification",
+      "AEAL discipline"
+    ],
+    "notes": "Status: Tier-2 — a formalized STATEMENT plus a documented capability gap; NOT a proof. The q_ekr proof body is a deliberate sorry; the build warning and sorryAx in the axiom cone are intentional and must not be suppressed. Repository licensing: source code under the repository LICENSE (currently MIT), documentation and prose (capability/qekr_substrate.gap.md, README) under LICENSE-DOCS (CC-BY-4.0); this Zenodo record is deposited under CC-BY-4.0 to match the program's statement-shape deposits (K_0, EBR). NOTE for the operator: the Lean file headers declare 'Released under Apache 2.0 license' while the repository LICENSE file is MIT — a pre-existing inconsistency that should be reconciled before any Mathlib4 PR (Mathlib requires Apache-2.0 headers and an Apache-2.0 LICENSE). AI-use disclosure: GitHub Copilot CLI (powered by Anthropic Claude) and Anthropic Claude were used to assist with code generation, build/axiom-cone verification, and documentation drafting under an explicit-evidence-acceptance-and-logging (AEAL) discipline. After using these tools, the author reviewed and edited the content and takes full responsibility for it. The AI tools are not authors. Part of the AEAL-disciplined 'unsolved-relay' series; the statement-shape sibling is mission K_0 (khinchin-k0-bounded), Zenodo concept DOI 10.5281/zenodo.20246707.",
+    "related_identifiers": [
+      {
+        "identifier": "https://github.com/papanokechi/unsolved-relay-2-erdos-ko-rado-q-analog-lean",
+        "relation": "isSupplementTo",
+        "resource_type": "software",
+        "scheme": "url"
+      },
+      {
+        "identifier": "10.5281/zenodo.20246707",
+        "relation": "references",
+        "resource_type": "publication-preprint",
+        "scheme": "doi"
+      }
+    ],
+    "custom": {
+      "code:codeRepository": "https://github.com/papanokechi/unsolved-relay-2-erdos-ko-rado-q-analog-lean",
+      "code:programmingLanguage": [
+        { "id": "lean", "title": { "en": "Lean" } }
+      ],
+      "code:developmentStatus": { "id": "active", "title": { "en": "Active" } }
+    },
+    "version": "1.0"
+  },
+  "_concept_doi": "",
+  "_comment": "Concept DOI intentionally empty — operator mints at deposit time (do NOT pre-fill). resource_type / license / creator-name below are house-aligned to the live K_0 and EBR-II records; see _operator_decisions and submission_log/OPERATOR_CHECKLIST.md.",
+  "_alignment_evidence": {
+    "K_0_record": "10.5281/zenodo.20246708 (concept 20246707): resource_type Preprint (publication/preprint), license cc-by-4.0, creators name 'papanokechi, papanokechi', isPartOf SIARC umbrella 10.5281/zenodo.19885549, isSupplementTo GitHub repo.",
+    "EBR_II_record": "10.5281/zenodo.20566466: resource_type Preprint (publication/preprint), license cc-by-4.0, creators name 'Papanokechi', custom code:codeRepository = project-fingerprint.",
+    "this_draft": "Aligned to BOTH on resource_type=Preprint and license=cc-by-4.0; creator-name uses EBR's 'Papanokechi' form (see _operator_decisions flag 3)."
+  },
+  "_operator_decisions": [
+    {
+      "field": "resource_type / upload_type",
+      "house_aligned_default": "publication / preprint (Preprint).",
+      "evidence": "Both statement-shape precedents are Preprints: K_0 (20246708) and EBR-II (20566466) both have resource_type {Preprint, publication/preprint}.",
+      "alternative": "software — defensible since the bundle is a Lean repo + gap-doc with no manuscript PDF. REJECTED as the default because the named comparator (K_0, also a Lean statement-shape artifact) was deposited as a Preprint, and the gap analysis reads as a note. Operator may override to 'software' if a code-archive framing is preferred.",
+      "recommendation": "Match K_0/EBR: Preprint. Confirm."
+    },
+    {
+      "field": "license",
+      "house_aligned_default": "cc-by-4.0.",
+      "evidence": "Both K_0 and EBR-II deposits use license cc-by-4.0.",
+      "alternative": "MIT (repo code LICENSE) or Apache-2.0 (what the Lean headers claim). Use a code license ONLY if the operator switches resource_type to 'software'. Note the repository's own dual licensing: code = MIT (LICENSE), docs = CC-BY-4.0 (LICENSE-DOCS).",
+      "recommendation": "Deposit under CC-BY-4.0 to match the program's statement-shape records. Confirm."
+    },
+    {
+      "field": "creators[0].name",
+      "house_aligned_default": "Papanokechi (matches the live EBR-II record and the program memory).",
+      "evidence": "EBR-II (20566466) renders 'Papanokechi'; K_0 (20246708) renders 'papanokechi, papanokechi' (Family, Given). The two precedents DISAGREE — genuine ambiguity.",
+      "alternative": "papanokechi, papanokechi — to match the K_0 statement-shape sibling exactly for unsolved-relay-series consistency.",
+      "orcid": "0009-0000-6192-8273 (identical across K_0 and EBR-II — unambiguous).",
+      "recommendation": "FLAGGED. Default 'Papanokechi' (latest house form); switch to 'papanokechi, papanokechi' if K_0-series display consistency is preferred. Operator picks."
+    },
+    {
+      "field": "Lean-header license vs LICENSE file (pre-existing repo inconsistency)",
+      "finding": "Lean file headers (QEkr/*.lean) declare 'Copyright (c) 2026 papanokechi. All rights reserved. Released under Apache 2.0 license as described in the file LICENSE.' — but the repository LICENSE file is 'MIT License, Copyright (c) 2026 Papanokechi'. Headers reference Apache-2.0; the file is MIT. LICENSE-DOCS is CC-BY-4.0.",
+      "impact": "Internal inconsistency. Matters especially for a future Mathlib4 PR, which REQUIRES Apache-2.0 file headers AND an Apache-2.0 LICENSE. The CC-BY-4.0 Zenodo deposit license is independent of this and is fine.",
+      "recommendation": "FLAGGED for operator to reconcile header-vs-LICENSE consistency before any Mathlib PR. DO NOT edit headers as part of this PREPARE task (operator decision).",
+      "action_taken": "none (headers and LICENSE left untouched)."
+    },
+    {
+      "field": "related_identifiers — SIARC umbrella link omitted (deliberate)",
+      "finding": "K_0 links isPartOf the SIARC PCF umbrella 10.5281/zenodo.19885549 ('An Arithmetic Stratification of Polynomial Continued Fractions'). q-EKR is extremal set theory / finite-geometry combinatorics, NOT a polynomial-continued-fraction result, so an isPartOf to the SIARC-PCF umbrella would be a category mismatch and was intentionally NOT added.",
+      "recommendation": "If an 'unsolved-relay' series umbrella DOI exists (distinct from SIARC-PCF), the operator may add it as isPartOf. Otherwise leave only the GitHub repo (isSupplementTo) and the K_0 concept DOI (references)."
+    },
+    {
+      "field": "related_identifiers — GitHub link resolution",
+      "finding": "https://github.com/papanokechi/unsolved-relay-2-erdos-ko-rado-q-analog-lean currently returns HTTP 404 because the repo is PRIVATE (gh: isPrivate=true). The K_0 concept DOI 10.5281/zenodo.20246707 resolves (concept → record 20246708, verified via Zenodo API).",
+      "recommendation": "The GitHub related-identifier will resolve once the operator flips the repo public (M6 precedent) — do this BEFORE minting so the link is live."
+    }
+  ]
+}

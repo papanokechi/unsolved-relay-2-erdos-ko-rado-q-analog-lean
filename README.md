@@ -45,8 +45,28 @@ See [`methodology/heuristics.md`](methodology/heuristics.md) for the inheritance
 | `mutation_log/` | H1 mutation budget ledger |
 | `seeds/` | Reproducibility seeds (random seeds, search starts, etc.) |
 
-## Status
+## Status — M5 Tier-2 close (formalized statement + documented capability gap; **NOT a proof**)
 
-Currently at **M1.3 Gold Freeze G1-2** with `targets/selected.md` ratified. Mutation budget for M1-2: **0/1**, unchanged through selection.
+**Outcome: Tier-2** per [`targets/success_predicate.md`](targets/success_predicate.md) §2.2.
+This repository delivers a **formalized Lean 4 statement** of the q-EKR (t = 1) theorem
+together with a **rigorous, documented capability gap** — it is **not** a formalized proof.
 
-Next milestone: **M2.1 literature ledger drafting** (≥ 15 entries; H6 namespace audit + H8 paper-reads on load-bearing entries).
+- **Formalized statement** (`QEkr/`, builds clean against Mathlib v4.29.0):
+  - `QEkr.IsDimIntersectingOf` — q-analog intersecting-families predicate (no `sorry`).
+  - `QEkr.q_ekr` — the q-EKR (t = 1) bound, fully stated and type-checked.
+- **Documented gap** ([`capability/qekr_substrate.gap.md`](capability/qekr_substrate.gap.md)):
+  the `q_ekr` proof body is a deliberate `sorry` marking an **AEAL CAPABILITY GAP** — the
+  Mathlib v4.29.0 substrate needed to prove it (q-binomial / Gaussian-binomial subspace
+  counting + the q-analog EKR extremal argument) is **absent**. The gap doc names the exact
+  missing substrate and gives a dependency-ordered roadmap.
+- **Build:** `lake build` succeeds **modulo exactly one intended `sorry` warning** on
+  `q_ekr`; `#print axioms QEkr.q_ekr` lists `sorryAx`. These signals are the honest
+  statement-not-proof indicator and are **intentionally retained** (not suppressed, not
+  swapped for an `axiom`).
+- **Method-substitution record:** Frankl–Wilson eigenvalue → compression → direct
+  point-pencil counting, each substituted on a substrate failure (see the gap doc §5).
+- Mutation budget M3-2: **0/1**, unchanged (Tier-2 is the M2.4-ratified cascade-fallback).
+
+> This is an honest partial result — a **statement + documented gap**, suitable as a short
+> note / Mathlib-statement contribution — **not** the closed-proof Mathlib4 PR originally
+> targeted. Deposit-ready artifacts are under [`submission_log/`](submission_log/).

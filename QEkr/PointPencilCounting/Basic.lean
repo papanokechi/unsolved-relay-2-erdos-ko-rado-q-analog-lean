@@ -22,10 +22,13 @@ any such point-pencil — equal to the q-binomial coefficient
 $\binom{n-1}{k-1}_q$, but stated here set-theoretically to avoid the
 q-binomial substrate gap surfaced at M2.2 Fire 1 / M3.1 H10 sub-step 1.
 
-This file is the **FIRST STAGED COMMIT** of substep (3); subsequent
-commits will incrementally replace `sorry` placeholders with the
-counting argument (per the operator-calibrated multi-session staging
-pattern).
+**Tier-2 outcome (M5):** this file provides a formalized *statement* of
+q-EKR plus an explicitly documented capability gap — it is **NOT** a
+proof. The `q_ekr` proof body is a deliberate `sorry` marking an AEAL
+CAPABILITY GAP (the required Mathlib substrate is absent); see
+`capability/qekr_substrate.gap.md`. The predicate and the statement
+type-check, and `lake build` succeeds modulo the single, intended `sorry`
+warning (the honest statement-not-proof signal).
 
 ## Main definition
 
@@ -50,8 +53,11 @@ pattern).
   `Submodule.finrank_mono` is synthesised automatically from
   `[Module.Finite K M]` over a `DivisionRing` via
   `finiteDimensional_submodule`).
-* `q_ekr` theorem: scaffolded with `sorry`; proof to be completed
-  top-down across subsequent staged commits.
+* `q_ekr` theorem: **statement formalized; proof NOT formalized**
+  (Tier-2). The body is a deliberate `sorry` = a documented AEAL
+  CAPABILITY GAP — the honest signal that the theorem is asserted, not
+  proved (`#print axioms q_ekr` lists `sorryAx`). See
+  `capability/qekr_substrate.gap.md`.
 
 ## References
 
@@ -59,8 +65,9 @@ pattern).
   q-analog intersecting-families predicate this file builds on.
 * `targets/selected.md` (gold/M1-2) — the bounded sub-question
   (q-EKR for k-dim subspaces of F_q^n, t=1).
-* `targets/success_predicate.md` §3.1 (gold/M2-2) — Tier 1 closed-proof
-  target this file scaffolds towards.
+* `targets/success_predicate.md` §2.2 (Tier 2 — statement + substrate-gap
+  comment) — the success-predicate form this file realizes; §2.1 (Tier 1
+  closed proof) is the target that the documented substrate gap blocks.
 -/
 
 import QEkr.IsDimIntersectingOf
@@ -149,12 +156,19 @@ q-binomial coefficient $\binom{n-1}{k-1}_q$, stated here
 set-theoretically via point-pencil cardinality to avoid the q-binomial
 substrate gap (M2.2 Fire 1 / M3.1 H10 sub-step 1 / U-MISSION-2-J).
 
-**Proof method**: direct point-pencil counting per U-MISSION-2-J option
-(iii) / M2.2 §3 documented alternative method. The proof will proceed
-top-down across substep (3) staged commits.
-
-**Status**: statement-shape complete; proof body `sorry`. Subsequent
-staged commits will incrementally fill in the proof.
+**Proof status (Tier-2 — a documented capability gap, NOT a proof)**: the
+statement above is formalized and type-checks; the proof is **not**
+formalized. The body is a deliberate `sorry` marking an AEAL CAPABILITY
+GAP — the Mathlib v4.29.0 substrate needed to discharge it (q-binomial /
+Gaussian-binomial subspace counting + the q-analog Erdős–Ko–Rado extremal
+argument) is **absent**. The direct point-pencil counting reframing
+(U-MISSION-2-J option (iii) / M2.2 §3) dodges the missing q-binomial
+*definition* (the bound is stated set-theoretically via `Set.ncard`), but
+the extremal + counting substrate remains required. See
+`capability/qekr_substrate.gap.md` for the full gap analysis and
+dependency-ordered roadmap, and `targets/success_predicate.md` §2.2 for
+the Tier-2 success-predicate form. This deposit is a formalized STATEMENT
+of q-EKR with an explicitly documented capability gap; it is NOT a proof.
 -/
 theorem q_ekr {K : Type*} [Field K] [Fintype K]
     {n : ℕ} (k : ℕ) (_hk_pos : 1 ≤ k) (_hk_le : k ≤ n)
@@ -163,14 +177,37 @@ theorem q_ekr {K : Type*} [Field K] [Fintype K]
     (_h_int : IsDimIntersectingOf {d | 1 ≤ d} 𝒜)
     (V₀ : Submodule K (Fin n → K)) (_hV₀_dim : Module.finrank K V₀ = 1) :
     Set.ncard 𝒜 ≤ Set.ncard (pointPencil V₀ k) := by
-  -- TODO: substep (3) staged commits — direct point-pencil counting
-  -- proof. Anticipated top-down decomposition:
-  -- (a) Every intersecting family of k-dim subspaces is contained in
-  --     some point-pencil (for the extremal case) OR is strictly
-  --     smaller than any point-pencil (non-extremal case).
-  -- (b) All point-pencils through a fixed-dim centre have the same
-  --     cardinality (by basis-extension / linear-algebra bijection).
-  -- (c) Combine (a) + (b) to conclude `|𝒜| ≤ |pointPencil V₀ k|`.
+  -- ══════════════════════════════════════════════════════════════════
+  --  AEAL CAPABILITY GAP — DOCUMENTED · FUNDAMENTAL (substrate-absent)
+  -- ══════════════════════════════════════════════════════════════════
+  -- This is a Tier-2 deliverable. The STATEMENT of q-EKR above is the
+  -- contribution; the PROOF is NOT formalized. The `sorry` below is kept
+  -- DELIBERATELY: the `lake build` warning and `#print axioms q_ekr`
+  -- (which lists `sorryAx`) are the HONEST signal that this theorem is
+  -- ASSERTED, NOT PROVED. Do not suppress the warning; do not replace the
+  -- `sorry` with an `axiom` (that would silently discharge the goal and
+  -- make the file read as a proof).
+  --
+  -- Gap class: FUNDAMENTAL — the Mathlib v4.29.0 substrate required to
+  -- discharge this goal is ABSENT (this is a substrate gap, NOT budget /
+  -- time exhaustion). Specifically missing, in dependency order:
+  --   (a) q-binomial / Gaussian-binomial coefficients over 𝔽_q
+  --       (`qBinomial` / `gaussBinomial`: 0 declarations in Mathlib
+  --       v4.29.0, confirmed by source grep);
+  --   (b) subspace counting over 𝔽_q — the Gaussian-binomial Grassmannian
+  --       enumeration #{k-subspaces ⊇ a fixed line} = ⟨n-1, k-1⟩_q —
+  --       which both gives `Set.ncard (pointPencil V₀ k)` its value and
+  --       proves all point-pencils through a 1-dim centre equinumerous;
+  --   (c) the q-analog Erdős–Ko–Rado extremal argument itself (no q-EKR /
+  --       subspace extremal-set theory in Mathlib; the classical
+  --       `erdos_ko_rado` at Mathlib/Combinatorics/SetFamily/
+  --       KruskalKatona.lean is FINSET-only and does NOT transfer to
+  --       subspaces of 𝔽_q^n).
+  --
+  -- Each (a)–(c) is a multi-month substrate formalization, out of this
+  -- mission's scope. Full analysis, dependency-ordered roadmap, and the
+  -- method-substitution history (Frankl–Wilson → compression →
+  -- point-pencil counting) are in: capability/qekr_substrate.gap.md
   sorry
 
 end QEkr
