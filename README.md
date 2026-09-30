@@ -1,5 +1,10 @@
 # unsolved-relay-2-erdos-ko-rado-q-analog-lean
 
+> **v1.1 correction (2026-09-30).** v1.0 stated `q_ekr` under `1 ≤ k ≤ n`. That statement
+> is false: for `2k > n` every two k-subspaces meet, so all of them form an intersecting
+> family larger than a point-pencil. v1.1 assumes `2 * k ≤ n` (the Frankl–Wilson range).
+> The proof is still a `sorry`, now on a true statement. See `CHANGES_v1.1.md`.
+
 **Mission 2 of the AEAL-disciplined "unsolved-relay" series.**
 
 This repository tracks an AEAL-disciplined 6-week investigation into the **q-analog of the Erdős–Ko–Rado theorem**, with the deliverable being a closed-proof Lean 4 / Mathlib4 contribution.
@@ -11,7 +16,8 @@ This repository tracks an AEAL-disciplined 6-week investigation into the **q-ana
 | **Companion mission (K_0)** | [papanokechi/khinchin-k0-bounded](https://github.com/papanokechi/khinchin-k0-bounded) @ `gold/M6` = `67655c0`, Zenodo [10.5281/zenodo.20246707](https://doi.org/10.5281/zenodo.20246707) |
 | **Framework** | AEAL eleven-heuristic catalogue H1–H11, inherited from K_0 mission |
 | **Duration** | 6 weeks, milestones M1-2 … M6-2 (one gold tag per milestone) |
-| **Visibility** | **PRIVATE** during mission; flip to **PUBLIC** at `gold/M6-2` Zenodo deposit per U-MISSION-B precedent from K_0 |
+| **Visibility** | **PUBLIC** (flipped at the Tier-2 deposit, 2026-06-07) |
+| **Zenodo deposit** | v1.0 [10.5281/zenodo.20575745](https://doi.org/10.5281/zenodo.20575745) (concept [10.5281/zenodo.20575744](https://doi.org/10.5281/zenodo.20575744), which resolves to the latest version) — formalized **statement** + documented gap, **not a proof** |
 | **Reference list source** | https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_mathematics |
 
 ## Mission discipline
@@ -60,7 +66,9 @@ together with a **rigorous, documented capability gap** — it is **not** a form
   counting + the q-analog EKR extremal argument) is **absent**. The gap doc names the exact
   missing substrate and gives a dependency-ordered roadmap.
 - **Build:** `lake build` succeeds **modulo exactly one intended `sorry` warning** on
-  `q_ekr`; `#print axioms QEkr.q_ekr` lists `sorryAx`. These signals are the honest
+  `q_ekr`; `lake env lean check_axioms.lean` shows that `#print axioms QEkr.q_ekr` lists
+  `sorryAx`. (v1.1. In v1.0 the default target did not import `q_ekr`, so `lake build`
+  emitted no warning at all, and no axiom-check file was included.) These signals are the honest
   statement-not-proof indicator and are **intentionally retained** (not suppressed, not
   swapped for an `axiom`).
 - **Method-substitution record:** Frankl–Wilson eigenvalue → compression → direct
@@ -70,3 +78,9 @@ together with a **rigorous, documented capability gap** — it is **not** a form
 > This is an honest partial result — a **statement + documented gap**, suitable as a short
 > note / Mathlib-statement contribution — **not** the closed-proof Mathlib4 PR originally
 > targeted. Deposit-ready artifacts are under [`submission_log/`](submission_log/).
+
+**Deposited** (2026-06-07): Zenodo [10.5281/zenodo.20575745](https://doi.org/10.5281/zenodo.20575745)
+(concept DOI [10.5281/zenodo.20575744](https://doi.org/10.5281/zenodo.20575744)), resource
+type **Preprint**, license **CC-BY-4.0**. See [`submission_log/DEPOSITED.md`](submission_log/DEPOSITED.md).
+
+**v1.1** (2026-09-30): corrected statement (`2 * k ≤ n`); see [`CHANGES_v1.1.md`](CHANGES_v1.1.md).

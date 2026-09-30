@@ -37,9 +37,9 @@ warning (the honest statement-not-proof signal).
 
 ## Main statement
 
-* `QEkr.q_ekr` — the q-EKR (t=1) bound: every intersecting family of
-  `k`-dim subspaces of `F_q^n` has cardinality bounded by any
-  point-pencil through a fixed 1-dim subspace.
+* `QEkr.q_ekr` — the q-EKR (t=1) bound: for `1 ≤ k`, `2 * k ≤ n`, every
+  intersecting family of `k`-dim subspaces of `F_q^n` has cardinality
+  bounded by any point-pencil through a fixed 1-dim subspace.
 
 ## Status (substep (3) first staged commit)
 
@@ -150,11 +150,18 @@ The **q-Erdős-Ko-Rado theorem (t=1)** for k-dim intersecting families
 of subspaces of `F_q^n`.
 
 **Statement**: every intersecting family `𝒜` of k-dimensional subspaces
-of `F_q^n` (with `1 ≤ k ≤ n`) has cardinality bounded by
+of `F_q^n` (with `1 ≤ k` and `2 * k ≤ n`) has cardinality bounded by
 `|pointPencil V₀ k|` for any 1-dim subspace `V₀`. This bound equals the
 q-binomial coefficient $\binom{n-1}{k-1}_q$, stated here
 set-theoretically via point-pencil cardinality to avoid the q-binomial
 substrate gap (M2.2 Fire 1 / M3.1 H10 sub-step 1 / U-MISSION-2-J).
+
+**Hypothesis `2 * k ≤ n` (v1.1 correction).** v1.0 assumed only `k ≤ n`, under which
+the statement is false: if `2 * k > n`, any two k-dimensional subspaces meet
+nontrivially, so the whole Grassmannian is intersecting and has more elements than a
+point-pencil. With `2 * k ≤ n` the bound is the Frankl–Wilson theorem. (Equality only
+for point-pencils needs `n ≥ 2 * k + 1`: at `n = 2 * k` the k-subspaces of a fixed
+hyperplane also attain the bound. Only the bound is stated here.)
 
 **Proof status (Tier-2 — a documented capability gap, NOT a proof)**: the
 statement above is formalized and type-checks; the proof is **not**
@@ -171,7 +178,7 @@ the Tier-2 success-predicate form. This deposit is a formalized STATEMENT
 of q-EKR with an explicitly documented capability gap; it is NOT a proof.
 -/
 theorem q_ekr {K : Type*} [Field K] [Fintype K]
-    {n : ℕ} (k : ℕ) (_hk_pos : 1 ≤ k) (_hk_le : k ≤ n)
+    {n : ℕ} (k : ℕ) (_hk_pos : 1 ≤ k) (_h2k : 2 * k ≤ n)
     (𝒜 : Set (Submodule K (Fin n → K)))
     (_h_dim : ∀ V ∈ 𝒜, Module.finrank K V = k)
     (_h_int : IsDimIntersectingOf {d | 1 ≤ d} 𝒜)

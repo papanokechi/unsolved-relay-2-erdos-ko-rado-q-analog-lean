@@ -58,11 +58,12 @@ Mathlib v4.29.0 (toolchain + Mathlib SHA `8a178386ffc0`, SHA-pinned in `lake-man
   (all k-dim subspaces containing `V₀`) plus proved lemmas `mem_iff`, `uniform_dim`,
   `contains_centre`, `le_inf_of_mem_mem`, and `isDimIntersectingOf_ge`.
 
-* **Statement** — `QEkr.q_ekr` (exact current signature):
+* **Statement** — `QEkr.q_ekr` (exact current signature; v1.1 replaced `_hk_le : k ≤ n`,
+  under which the statement is false for `2k > n`, by `_h2k : 2 * k ≤ n`):
 
   ```lean
   theorem q_ekr {K : Type*} [Field K] [Fintype K]
-      {n : ℕ} (k : ℕ) (_hk_pos : 1 ≤ k) (_hk_le : k ≤ n)
+      {n : ℕ} (k : ℕ) (_hk_pos : 1 ≤ k) (_h2k : 2 * k ≤ n)
       (𝒜 : Set (Submodule K (Fin n → K)))
       (_h_dim : ∀ V ∈ 𝒜, Module.finrank K V = k)
       (_h_int : IsDimIntersectingOf {d | 1 ≤ d} 𝒜)
@@ -71,8 +72,8 @@ Mathlib v4.29.0 (toolchain + Mathlib SHA `8a178386ffc0`, SHA-pinned in `lake-man
     sorry
   ```
 
-  i.e. *every 1-intersecting family `𝒜` of k-dim subspaces of `𝔽_q^n` has cardinality at
-  most that of any point-pencil through a fixed line `V₀`.* The bound equals the Gaussian
+  i.e. *for `2k ≤ n`, every 1-intersecting family `𝒜` of k-dim subspaces of `𝔽_q^n` has
+  cardinality at  most that of any point-pencil through a fixed line `V₀`.* The bound equals the Gaussian
   binomial `⟨n-1, k-1⟩_q`, stated here **set-theoretically** via `Set.ncard (pointPencil …)`.
 
 ---
@@ -105,8 +106,8 @@ in v4.29.0. Each is a multi-month formalization, ordered by dependency:
 
 ### (c) The q-analog Erdős–Ko–Rado extremal argument — **ABSENT**
 
-* The actual theorem: an intersecting family of k-subspaces is no larger than a maximal
-  point-pencil. Mathlib's only EKR is the **classical, finset** version
+* The actual theorem: for `n ≥ 2k`, an intersecting family of k-subspaces is no larger
+  than a maximal  point-pencil. Mathlib's only EKR is the **classical, finset** version
   `theorem erdos_ko_rado` in `Mathlib/Combinatorics/SetFamily/KruskalKatona.lean`
   (authors Mehta–Dillies; `#𝒜 ≤ (n-1).choose (r-1)` over `Finset (Finset (Fin n))`). It
   **does not transfer** to subspaces of `𝔽_q^n`: subspaces are not a `Finset (Finset …)`

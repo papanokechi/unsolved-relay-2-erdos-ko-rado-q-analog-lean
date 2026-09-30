@@ -158,6 +158,11 @@ to in `targets/selected.md`.
   > Equality iff the family consists of all $k$-dimensional subspaces
   > containing a fixed 1-dimensional subspace.
   >
+  > **[Correction 2026-09-30]** The equality clause holds only for
+  > $n \ge 2k+1$. At $n = 2k$ the family of all $k$-subspaces contained in a
+  > fixed hyperplane also has size ${n-1 \brack k-1}_q$. The bound itself holds
+  > for all $n \ge 2k$.
+  >
   > **Method**: association scheme on $k$-dim subspaces; adjacency by
   > zero-intersection; intersecting family ↔ independent set in this graph;
   > Hoffman bound (eigenvalue ratio bound) applied; spectrum analysis via
